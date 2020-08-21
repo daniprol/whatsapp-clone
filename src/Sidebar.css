@@ -26,6 +26,10 @@
   margin-left: 10px;
 }
 
+.sidebar__searchContainer > input:focus {
+  outline: none;
+}
+
 .sidebar__searchContainer > .MuiSvgIcon-root {
   color: gray;
   padding: 10px;
@@ -52,7 +56,7 @@
 }
 
 .sidebar__chats {
-  background-color: lightblue;
+  /* background-color: lightblue; */
   flex: 1;
   /* We use flex:1 so it uses the entire height of the container (notice that the flex direction is column) */
   overflow: scroll;
