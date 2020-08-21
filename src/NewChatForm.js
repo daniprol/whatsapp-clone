@@ -42,45 +42,53 @@ export default function NewChatForm() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add New Chat</DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText>Enter name of the chat room</DialogContentText> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="chatRoom"
-            label="Chat Room"
-            type="text"
-            value={newChatName}
-            onChange={(e) => {
-              setNewChatName(e.target.value);
-              if (e.target.value === "") {
-                setEmptyInput(true);
-              } else {
-                setEmptyInput(false);
-              }
-            }}
-            // error={newChatName === ""}
-            error={emptyInput}
-            helperText={emptyInput ? "Room must have a name" : " "}
-            fullWidth
-            // onBlur={(e) => {
-            //   newChatName === "" ? setEmptyInput(true) : setEmptyInput(false);
-            // }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            disabled={newChatName === ""}
-            onClick={addNewChat}
-            color="primary"
-          >
-            Create
-          </Button>
-        </DialogActions>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addNewChat();
+          }}
+        >
+          <DialogTitle id="form-dialog-title">Add New Chat</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>Enter name of the chat room</DialogContentText> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="chatRoom"
+              label="Chat Room"
+              type="text"
+              value={newChatName}
+              onChange={(e) => {
+                setNewChatName(e.target.value);
+                if (e.target.value === "") {
+                  setEmptyInput(true);
+                } else {
+                  setEmptyInput(false);
+                }
+              }}
+              // error={newChatName === ""}
+              error={emptyInput}
+              helperText={emptyInput ? "Room must have a name" : " "}
+              fullWidth
+              // onBlur={(e) => {
+              //   newChatName === "" ? setEmptyInput(true) : setEmptyInput(false);
+              // }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button
+              disabled={newChatName === ""}
+              // onClick={addNewChat}
+              type="submit"
+              color="primary"
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
