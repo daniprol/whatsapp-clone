@@ -8,7 +8,7 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
 
 function Chat() {
-  const [seed, setSeed] = useState("");
+  // const [seed, setSeed] = useState("");
   const [input, setInput] = useState("");
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
@@ -24,12 +24,12 @@ function Chat() {
     }
   }, [roomId]); // IMPORTANT: we need to use this hook everytime we request a new chat room in the route. Otherwise it would only load the correct chat the first time!
 
-  useEffect(() => {
-    const randomString = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "");
-    setSeed(randomString);
-  }, []);
+  // useEffect(() => {
+  // const randomString = Math.random()
+  //   .toString(36)
+  //   .replace(/[^a-z]+/g, "");
+  // setSeed(randomString);
+  // }, [roomId]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ function Chat() {
   return (
     <div className="chat">
       <div className="chat__header">
-        <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+        <Avatar src={`https://avatars.dicebear.com/api/human/${roomId}.svg`} />
         <div className="chat__headerInfo">
           <h3>{roomName}</h3>
           <p>Last seen at ...</p>
