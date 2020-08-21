@@ -40,6 +40,7 @@
   /* align-items: center; */
   padding: 20px;
   border-right: 1px solid lightgray;
+  /* background-color: lightblue; */
 }
 
 .sidebar__headerRight {
@@ -59,6 +60,6 @@
   /* background-color: lightblue; */
   flex: 1;
   /* We use flex:1 so it uses the entire height of the container (notice that the flex direction is column) */
-  overflow: scroll;
+  overflow-y: scroll;
   /* Use overflow: scroll to manage the scrolling WITHIN the container */
 }
