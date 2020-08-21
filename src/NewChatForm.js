@@ -7,15 +7,16 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import "./SidebarChat.css";
+import db from "./firebase-config";
 
 export default function NewChatForm() {
   const [open, setOpen] = useState(false);
-  const [newChat, setNewChat] = useState("");
+  const [newChatName, setNewChatName] = useState("");
   const [emptyInput, setEmptyInput] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    setNewChat("");
+    setNewChatName("");
     setEmptyInput("");
   };
 
@@ -23,6 +24,14 @@ export default function NewChatForm() {
     setOpen(true);
   };
 
+  const addNewChat = () => {
+    if (newChatName !== "") {
+      db.collection("rooms").add({
+        name: newChatName,
+      });
+    }
+    handleClose();
+  };
   return (
     <div>
       <div className="sidebarChat" onClick={newChatModal}>
@@ -42,19 +51,21 @@ export default function NewChatForm() {
             id="chatRoom"
             label="Chat Room"
             type="text"
-            value={newChat}
+            value={newChatName}
             onChange={(e) => {
-              setNewChat(e.target.value);
+              setNewChatName(e.target.value);
               if (e.target.value === "") {
                 setEmptyInput(true);
+              } else {
+                setEmptyInput(false);
               }
             }}
-            // error={newChat === ""}
+            // error={newChatName === ""}
             error={emptyInput}
             helperText={emptyInput ? "Room must have a name" : " "}
             fullWidth
             // onBlur={(e) => {
-            //   newChat === "" ? setEmptyInput(true) : setEmptyInput(false);
+            //   newChatName === "" ? setEmptyInput(true) : setEmptyInput(false);
             // }}
           />
         </DialogContent>
@@ -63,8 +74,8 @@ export default function NewChatForm() {
             Cancel
           </Button>
           <Button
-            disabled={newChat === ""}
-            onClick={handleClose}
+            disabled={newChatName === ""}
+            onClick={addNewChat}
             color="primary"
           >
             Create
