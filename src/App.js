@@ -1,32 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import Login from "./Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Chat from "./Chat";
 import "./App.css";
 
 function App() {
-  return (
-    <div className="app">
-      <div className="app__body">
-        <Router>
-          {/* Sidebar */}
-          <Sidebar />
-          <Switch>
-            <Route exact path="/">
-              <Chat />
-            </Route>
-            <Route path="/rooms/:roomId">
-              {/* Chat */}
-              <Chat />
-            </Route>
-            {/* <Route path="/">
+  const [user, setUser] = useState(null);
+
+  const indexPage = (
+    <div className="app__body">
+      <Router>
+        {/* Sidebar */}
+        <Sidebar />
+        <Switch>
+          <Route exact path="/">
+            <Chat />
+          </Route>
+          <Route path="/rooms/:roomId">
+            {/* Chat */}
+            <Chat />
+          </Route>
+          {/* <Route path="/">
               <h1>Home screen</h1>
             </Route> */}
-          </Switch>
-        </Router>
-      </div>
+        </Switch>
+      </Router>
     </div>
   );
+
+  const loginPage = <Login />;
+  return <div className="app">{!user ? loginPage : indexPage}</div>;
 }
 
 export default App;

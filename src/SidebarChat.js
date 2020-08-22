@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./SidebarChat.css";
 import { Avatar } from "@material-ui/core";
@@ -6,12 +7,12 @@ import { Avatar } from "@material-ui/core";
 function SidebarChat({ id, name }) {
   // const [seed, setSeed] = useState("");
 
-  useEffect(() => {
-    // const randomString = Math.random()
-    //   .toString(36)
-    //   .replace(/[^a-z]+/g, "");
-    // setSeed(randomString);
-  }, []);
+  // useEffect(() => {
+  // const randomString = Math.random()
+  //   .toString(36)
+  //   .replace(/[^a-z]+/g, "");
+  // setSeed(randomString);
+  // }, []);
   //   console.log(randomString);
   return (
     <Link to={`/rooms/${id}`}>
