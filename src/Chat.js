@@ -3,16 +3,12 @@ import db from "./firebase-config";
 import { useParams } from "react-router-dom";
 import "./Chat.css";
 import { Avatar, IconButton } from "@material-ui/core";
-import {
-  AttachFile,
-  MoreVert,
-  SearchOutlined,
-  MessageSharp,
-} from "@material-ui/icons";
+import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
 import { useStateValue } from "./StateProvider";
 import firebase from "firebase";
+import ChatMessage from "./ChatMessage";
 
 function Chat() {
   // const [seed, setSeed] = useState("");
@@ -39,9 +35,9 @@ function Chat() {
           setRoomMessages(snapshot.docs.map((doc) => doc.data()))
         );
     }
+    console.log(roomMessages);
   }, [roomId]); // IMPORTANT: we need to use this hook everytime we request a new chat room in the route. Otherwise it would only load the correct chat the first time!
 
-  console.log(roomMessages);
   // useEffect(() => {
   // const randomString = Math.random()
   //   .toString(36)
@@ -85,19 +81,26 @@ function Chat() {
         </div>
       </div>
       <div className="chat__body">
-        {/* {messages.map(message => (
-          <ChatMessage user={message.user} message={message.message} timestamp={message.timestamp} key={message.timestamp}/>
-        ))} */}
-        <p className="chat__message">
+        {roomMessages.map((message) => (
+          <ChatMessage
+            messageUser={message.user}
+            messageString={message.message}
+            messageTimestamp={message.timestamp
+              ?.toDate()
+              .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            key={message.timestamp?.seconds}
+            isOwnMessage={message.user === user.displayName}
+          />
+        ))}
+        {/* <p className="chat__message">
           <span className="chat__name">Dani Prol</span>
           Hey guys
           <span className="chat__timestamp">3:52pm</span>
         </p>
         <p className={`chat__message ${true && "chat__receiver"}`}>
-          {/* <span className="chat__name">Dani Prol</span> */}
           Hey what's up?
           <span className="chat__timestamp">3:53pm</span>
-        </p>
+        </p> */}
       </div>
       <div className="chat__footer">
         <InsertEmoticonIcon />
