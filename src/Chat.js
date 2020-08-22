@@ -6,6 +6,8 @@ import { Avatar, IconButton } from "@material-ui/core";
 import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
+import { useStateValue } from "./StateProvider";
+import firebase from "firebase";
 
 function Chat() {
   // const [seed, setSeed] = useState("");
@@ -13,6 +15,7 @@ function Chat() {
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
 
+  const [{ user }, dispatch] = useStateValue();
   useEffect(() => {
     if (roomId) {
       db.collection("rooms")
@@ -33,7 +36,16 @@ function Chat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
+    console.log(user.displayName);
+    console.log(roomId);
     console.log("You tiped: ", input);
+    if (roomId) {
+      db.collection("rooms").doc(roomId).collection("messages").add({
+        user: user.displayName,
+        message: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    }
     setInput("");
   };
 

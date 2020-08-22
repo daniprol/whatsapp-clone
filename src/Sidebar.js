@@ -8,9 +8,11 @@ import SidebarChat from "./SidebarChat";
 import NewChatForm from "./NewChatForm";
 import "./Sidebar.css";
 import db from "./firebase-config";
+import { useStateValue } from "./StateProvider";
 
 function Sidebar() {
   const [rooms, setRooms] = useState([]);
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
@@ -30,7 +32,8 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar />
+        <Avatar src={user?.photoURL} />
+        {/* We are using optional chaining with user?.photoURL so it doesn't break if there's no photo url */}
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />
