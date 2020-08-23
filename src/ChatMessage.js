@@ -8,7 +8,7 @@ const ChatMessage = ({
   isOwnMessage,
 }) => {
   return (
-    <p className={`chat__message ${isOwnMessage ? "chat__receiver" : null}`}>
+    <p className={`chat__message ${isOwnMessage ? "chat__receiver" : ""}`}>
       {isOwnMessage ? null : <span className="chat__name">{messageUser}</span>}
       {messageString}
       <span className="chat__timestamp">{messageTimestamp}</span>

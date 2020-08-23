@@ -35,7 +35,7 @@ function Chat() {
           setRoomMessages(snapshot.docs.map((doc) => doc.data()))
         );
     }
-    console.log(roomMessages);
+    // console.log(roomMessages);
   }, [roomId]); // IMPORTANT: we need to use this hook everytime we request a new chat room in the route. Otherwise it would only load the correct chat the first time!
 
   // useEffect(() => {
@@ -47,9 +47,9 @@ function Chat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(user.displayName);
-    console.log(roomId);
-    console.log("You tiped: ", input);
+    // console.log(user.displayName);
+    // console.log(roomId);
+    // console.log("You tiped: ", input);
     if (roomId) {
       db.collection("rooms").doc(roomId).collection("messages").add({
         user: user.displayName,
@@ -66,7 +66,16 @@ function Chat() {
         <Avatar src={`https://avatars.dicebear.com/api/human/${roomId}.svg`} />
         <div className="chat__headerInfo">
           <h3>{roomName}</h3>
-          <p>Last seen at ...</p>
+          <p>
+            Last seen{" "}
+            {
+              // new Date(
+              roomMessages[roomMessages.length - 1]?.timestamp
+                ?.toDate()
+                .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+              // )
+            }
+          </p>
         </div>
         <div className="chat__headerRight">
           <IconButton>
@@ -88,7 +97,8 @@ function Chat() {
             messageTimestamp={message.timestamp
               ?.toDate()
               .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-            key={message.timestamp?.seconds}
+            // key={message.timestamp?.seconds}
+            key={message.message}
             isOwnMessage={message.user === user.displayName}
           />
         ))}
