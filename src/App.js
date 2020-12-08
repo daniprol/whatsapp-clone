@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Login from "./Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Chat from "./Chat";
 import { useStateValue } from "./StateProvider";
 import "./App.css";
@@ -14,7 +15,7 @@ function App() {
 
   const indexPage = (
     <div className="app__body">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         {/* Sidebar */}
         <Sidebar />
         <Switch>
